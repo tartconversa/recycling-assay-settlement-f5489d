@@ -1,0 +1,9 @@
+reference_id,lab_id,analyte,assigned,measured,uncertainty,available_at
+REFLAB1-moisture,LAB1,moisture,0.1,0.102,0.001,2025-01-04T08:00:00+08:00
+REFLAB1-nickel,LAB1,nickel,0.15,0.153,0.0015,2025-01-04T08:00:00+08:00
+REFLAB1-lithium,LAB1,lithium,0.03,0.0306,0.0003,2025-01-04T08:00:00+08:00
+REFLAB1-contaminant,LAB1,contaminant,0.003,0.00306,3e-05,2025-01-04T08:00:00+08:00
+REFLAB2-moisture,LAB2,moisture,0.1,0.098,0.001,2025-01-04T08:00:00+08:00
+REFLAB2-nickel,LAB2,nickel,0.15,0.147,0.0015,2025-01-04T08:00:00+08:00
+REFLAB2-lithium,LAB2,lithium,0.03,0.0294,0.0003,2025-01-04T08:00:00+08:00
+REFLAB2-contaminant,LAB2,contaminant,0.003,0.00294,3e-05,2025-01-04T08:00:00+08:00

@@ -1,0 +1,636 @@
+{
+  "title": "回收电池材料的取样争议与加工结算分析",
+  "synthetic": true,
+  "tables": [
+    {
+      "name": "lots",
+      "description": "来料批与合同。",
+      "columns": [
+        {
+          "name": "lot_id",
+          "type": "string",
+          "description": "批",
+          "nullable": true
+        },
+        {
+          "name": "supplier_id",
+          "type": "string",
+          "description": "供应商",
+          "nullable": true
+        },
+        {
+          "name": "contract_id",
+          "type": "string",
+          "description": "合同",
+          "nullable": true
+        },
+        {
+          "name": "received",
+          "type": "date",
+          "description": "到货",
+          "nullable": true
+        },
+        {
+          "name": "settlement_due",
+          "type": "date",
+          "description": "结算期限",
+          "nullable": true
+        },
+        {
+          "name": "state",
+          "type": "string",
+          "description": "provisional或disputed",
+          "nullable": true
+        }
+      ],
+      "key": [
+        "lot_id"
+      ],
+      "references": [],
+      "path": "data/lots.csv",
+      "row_count": 24,
+      "sha256": "4cf1d0d8fd20fd5b47fbb7a8b236dc9937080dc8517e0c0e37c5b98eaa55ea42"
+    },
+    {
+      "name": "containers",
+      "description": "容器实物，allocated_kg为已经投入加工湿重。",
+      "columns": [
+        {
+          "name": "container_id",
+          "type": "string",
+          "description": "容器",
+          "nullable": true
+        },
+        {
+          "name": "lot_id",
+          "type": "string",
+          "description": "批",
+          "nullable": true
+        },
+        {
+          "name": "wet_kg",
+          "type": "number",
+          "description": "湿重",
+          "nullable": true
+        },
+        {
+          "name": "allocated_kg",
+          "type": "number",
+          "description": "已投湿重",
+          "nullable": true
+        }
+      ],
+      "key": [
+        "container_id"
+      ],
+      "references": [
+        {
+          "column": "lot_id",
+          "target_table": "lots",
+          "target_column": "lot_id"
+        }
+      ],
+      "path": "data/containers.csv",
+      "row_count": 72,
+      "sha256": "ea96845ce426c15c16d58f2f51830dcb2826983cb97f99250f6a8fdda259f64c"
+    },
+    {
+      "name": "allocations",
+      "description": "本批次已投入事实；本次加工尚无最终回收实绩，不能从历史加工表冒领。",
+      "columns": [
+        {
+          "name": "allocation_id",
+          "type": "string",
+          "description": "投入",
+          "nullable": true
+        },
+        {
+          "name": "container_id",
+          "type": "string",
+          "description": "容器",
+          "nullable": true
+        },
+        {
+          "name": "line_id",
+          "type": "string",
+          "description": "线",
+          "nullable": true
+        },
+        {
+          "name": "wet_kg",
+          "type": "number",
+          "description": "已投湿重",
+          "nullable": true
+        },
+        {
+          "name": "started_at",
+          "type": "datetime",
+          "description": "开始时点",
+          "nullable": true
+        },
+        {
+          "name": "state",
+          "type": "string",
+          "description": "已投入状态",
+          "nullable": true
+        }
+      ],
+      "key": [
+        "allocation_id"
+      ],
+      "references": [
+        {
+          "column": "container_id",
+          "target_table": "containers",
+          "target_column": "container_id"
+        }
+      ],
+      "path": "data/allocations.csv",
+      "row_count": 24,
+      "sha256": "5892e37a28b57c48d3f89feacd8609006d9af3c755bec9a27638c7e6bca8313c"
+    },
+    {
+      "name": "samples",
+      "description": "独立重取和留样复测区分。",
+      "columns": [
+        {
+          "name": "sample_id",
+          "type": "string",
+          "description": "样",
+          "nullable": true
+        },
+        {
+          "name": "container_id",
+          "type": "string",
+          "description": "容器",
+          "nullable": true
+        },
+        {
+          "name": "position",
+          "type": "string",
+          "description": "取样位置",
+          "nullable": true
+        },
+        {
+          "name": "sampled",
+          "type": "date",
+          "description": "取样日",
+          "nullable": true
+        },
+        {
+          "name": "remaining_grams",
+          "type": "number",
+          "description": "余样",
+          "nullable": true
+        },
+        {
+          "name": "retest_of",
+          "type": "string",
+          "description": "留样原号",
+          "nullable": true
+        }
+      ],
+      "key": [
+        "sample_id"
+      ],
+      "references": [
+        {
+          "column": "container_id",
+          "target_table": "containers",
+          "target_column": "container_id"
+        },
+        {
+          "column": "retest_of",
+          "target_table": "samples",
+          "target_column": "sample_id"
+        }
+      ],
+      "path": "data/samples.csv",
+      "row_count": 58,
+      "sha256": "aa38d26074120411aa863b68fd8c432d34bf2a8e81106680a329d528addb6557"
+    },
+    {
+      "name": "assays",
+      "description": "原化验读数与定量限。",
+      "columns": [
+        {
+          "name": "assay_id",
+          "type": "string",
+          "description": "化验",
+          "nullable": true
+        },
+        {
+          "name": "sample_id",
+          "type": "string",
+          "description": "样",
+          "nullable": true
+        },
+        {
+          "name": "lab_id",
+          "type": "string",
+          "description": "实验室",
+          "nullable": true
+        },
+        {
+          "name": "analyte",
+          "type": "string",
+          "description": "成分",
+          "nullable": true
+        },
+        {
+          "name": "qualifier",
+          "type": "string",
+          "description": "value或lt",
+          "nullable": true
+        },
+        {
+          "name": "value",
+          "type": "number",
+          "description": "比例或未知",
+          "nullable": true
+        },
+        {
+          "name": "limit",
+          "type": "number",
+          "description": "定量限",
+          "nullable": true
+        },
+        {
+          "name": "available_at",
+          "type": "datetime",
+          "description": "可知",
+          "nullable": true
+        }
+      ],
+      "key": [
+        "assay_id"
+      ],
+      "references": [
+        {
+          "column": "sample_id",
+          "target_table": "samples",
+          "target_column": "sample_id"
+        }
+      ],
+      "path": "data/assays.csv",
+      "row_count": 220,
+      "sha256": "5f3fefd6618cb89c188e54480b0235cc6def8727a4c4db61b8b48d6a08011727"
+    },
+    {
+      "name": "references",
+      "description": "参考样测值，用于分析测量偏差。",
+      "columns": [
+        {
+          "name": "reference_id",
+          "type": "string",
+          "description": "记录",
+          "nullable": true
+        },
+        {
+          "name": "lab_id",
+          "type": "string",
+          "description": "实验室",
+          "nullable": true
+        },
+        {
+          "name": "analyte",
+          "type": "string",
+          "description": "成分",
+          "nullable": true
+        },
+        {
+          "name": "assigned",
+          "type": "number",
+          "description": "参考值",
+          "nullable": true
+        },
+        {
+          "name": "measured",
+          "type": "number",
+          "description": "测值",
+          "nullable": true
+        },
+        {
+          "name": "uncertainty",
+          "type": "number",
+          "description": "标准不确定度",
+          "nullable": true
+        },
+        {
+          "name": "available_at",
+          "type": "datetime",
+          "description": "可知",
+          "nullable": true
+        }
+      ],
+      "key": [
+        "reference_id"
+      ],
+      "references": [],
+      "path": "data/references.csv",
+      "row_count": 8,
+      "sha256": "6143112bec0b72aa7594af226663100a1f057295e810f165a4c18a6f810e8aee"
+    },
+    {
+      "name": "contracts",
+      "description": "结算和复检口径。",
+      "columns": [
+        {
+          "name": "contract_id",
+          "type": "string",
+          "description": "合同",
+          "nullable": true
+        },
+        {
+          "name": "payable_fraction",
+          "type": "number",
+          "description": "计价金属比例",
+          "nullable": true
+        },
+        {
+          "name": "processing_fee_kg",
+          "type": "number",
+          "description": "干基处理费",
+          "nullable": true
+        },
+        {
+          "name": "contaminant_penalty_kg",
+          "type": "number",
+          "description": "超软界部分每千克罚款",
+          "nullable": true
+        },
+        {
+          "name": "soft_contaminant_limit",
+          "type": "number",
+          "description": "软界",
+          "nullable": true
+        },
+        {
+          "name": "accepted_basis",
+          "type": "string",
+          "description": "认可依据",
+          "nullable": true
+        },
+        {
+          "name": "provisional_fraction",
+          "type": "number",
+          "description": "暂付上限比例",
+          "nullable": true
+        }
+      ],
+      "key": [
+        "contract_id"
+      ],
+      "references": [],
+      "path": "data/contracts.csv",
+      "row_count": 2,
+      "sha256": "f093fb2a99169d51ae0838570d5e4b727a6d45b9e56ac1a0cb63d22400bcc8e3"
+    },
+    {
+      "name": "prices",
+      "description": "估值价格。",
+      "columns": [
+        {
+          "name": "analyte",
+          "type": "string",
+          "description": "金属",
+          "nullable": true
+        },
+        {
+          "name": "yuan_kg",
+          "type": "number",
+          "description": "每千克价",
+          "nullable": true
+        },
+        {
+          "name": "date",
+          "type": "date",
+          "description": "价格日期",
+          "nullable": true
+        }
+      ],
+      "key": [
+        "analyte",
+        "date"
+      ],
+      "references": [],
+      "path": "data/prices.csv",
+      "row_count": 2,
+      "sha256": "f2e43d188cb4a2f0b7ea166673ef4950108b5e56f43baccdbbd05d51e3e0df7f"
+    },
+    {
+      "name": "lines",
+      "description": "加工接收边界及台时。",
+      "columns": [
+        {
+          "name": "line_id",
+          "type": "string",
+          "description": "线",
+          "nullable": true
+        },
+        {
+          "name": "hard_contaminant_limit",
+          "type": "number",
+          "description": "污染物比例上界",
+          "nullable": true
+        },
+        {
+          "name": "capacity_wet_kg",
+          "type": "number",
+          "description": "每批湿重",
+          "nullable": true
+        },
+        {
+          "name": "cost_fixed",
+          "type": "number",
+          "description": "批固定费",
+          "nullable": true
+        },
+        {
+          "name": "free_batches",
+          "type": "integer",
+          "description": "未来批数",
+          "nullable": true
+        }
+      ],
+      "key": [
+        "line_id"
+      ],
+      "references": [],
+      "path": "data/lines.csv",
+      "row_count": 2,
+      "sha256": "a5e5b1154770b8e2f0b5941206087417bfff9bd9316b93a28dd2fab7a230d904"
+    },
+    {
+      "name": "processing_history",
+      "description": "历史加工配料与实收，不给未观察配料的回收率。",
+      "columns": [
+        {
+          "name": "run_id",
+          "type": "string",
+          "description": "加工",
+          "nullable": true
+        },
+        {
+          "name": "line_id",
+          "type": "string",
+          "description": "线",
+          "nullable": true
+        },
+        {
+          "name": "wet_kg",
+          "type": "number",
+          "description": "投入湿重",
+          "nullable": true
+        },
+        {
+          "name": "dry_kg",
+          "type": "number",
+          "description": "投入干重",
+          "nullable": true
+        },
+        {
+          "name": "nickel_fraction",
+          "type": "number",
+          "description": "干基镍",
+          "nullable": true
+        },
+        {
+          "name": "lithium_fraction",
+          "type": "number",
+          "description": "干基锂",
+          "nullable": true
+        },
+        {
+          "name": "contaminant_fraction",
+          "type": "number",
+          "description": "污染物",
+          "nullable": true
+        },
+        {
+          "name": "recovered_nickel_kg",
+          "type": "number",
+          "description": "回收镍",
+          "nullable": true
+        },
+        {
+          "name": "recovered_lithium_kg",
+          "type": "number",
+          "description": "回收锂",
+          "nullable": true
+        },
+        {
+          "name": "cost",
+          "type": "number",
+          "description": "实付处理成本",
+          "nullable": true
+        },
+        {
+          "name": "available_at",
+          "type": "datetime",
+          "description": "可知",
+          "nullable": true
+        }
+      ],
+      "key": [
+        "run_id"
+      ],
+      "references": [
+        {
+          "column": "line_id",
+          "target_table": "lines",
+          "target_column": "line_id"
+        }
+      ],
+      "path": "data/processing_history.csv",
+      "row_count": 40,
+      "sha256": "1f6abbabcb3caa0d062848c92091121e800cd1f283f263940778557f6dee95ad"
+    },
+    {
+      "name": "payments",
+      "description": "已暂付现金，不含最终应付款。",
+      "columns": [
+        {
+          "name": "payment_id",
+          "type": "string",
+          "description": "付款",
+          "nullable": true
+        },
+        {
+          "name": "lot_id",
+          "type": "string",
+          "description": "批",
+          "nullable": true
+        },
+        {
+          "name": "amount",
+          "type": "number",
+          "description": "已付元",
+          "nullable": true
+        },
+        {
+          "name": "paid_at",
+          "type": "datetime",
+          "description": "付款时点",
+          "nullable": true
+        }
+      ],
+      "key": [
+        "payment_id"
+      ],
+      "references": [
+        {
+          "column": "lot_id",
+          "target_table": "lots",
+          "target_column": "lot_id"
+        }
+      ],
+      "path": "data/payments.csv",
+      "row_count": 24,
+      "sha256": "ef1ee94da1d92fbb7b4f5249dadcbd4a5d5f19f21766e249818d85799cf8b498"
+    },
+    {
+      "name": "sampling_options",
+      "description": "取样消耗与信息来源不同。",
+      "columns": [
+        {
+          "name": "option_id",
+          "type": "string",
+          "description": "方式",
+          "nullable": true
+        },
+        {
+          "name": "cost",
+          "type": "number",
+          "description": "费用",
+          "nullable": true
+        },
+        {
+          "name": "grams",
+          "type": "number",
+          "description": "消耗克",
+          "nullable": true
+        },
+        {
+          "name": "days",
+          "type": "integer",
+          "description": "耗时",
+          "nullable": true
+        },
+        {
+          "name": "new_container_sample",
+          "type": "boolean",
+          "description": "是否原容器重取",
+          "nullable": true
+        }
+      ],
+      "key": [
+        "option_id"
+      ],
+      "references": [],
+      "path": "data/sampling_options.csv",
+      "row_count": 2,
+      "sha256": "454ab8c8aede600cfdd25b98bceb1cbc891a78f4344fdffe2f814e9e82d7d158"
+    }
+  ]
+}

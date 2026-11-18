@@ -1,0 +1,3 @@
+option_id,cost,grams,days,new_container_sample
+retained,120,100,2,false
+resample,350,500,4,true
