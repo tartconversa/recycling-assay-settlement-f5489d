@@ -49,7 +49,7 @@
       "references": [],
       "path": "data/lots.csv",
       "row_count": 24,
-      "sha256": "4cf1d0d8fd20fd5b47fbb7a8b236dc9937080dc8517e0c0e37c5b98eaa55ea42"
+      "sha256": "9b2ce607e9da1db15f5e9b04238ee8fbed713ede5c01230ea2a5bc32dd913666"
     },
     {
       "name": "containers",
@@ -92,7 +92,7 @@
       ],
       "path": "data/containers.csv",
       "row_count": 72,
-      "sha256": "ea96845ce426c15c16d58f2f51830dcb2826983cb97f99250f6a8fdda259f64c"
+      "sha256": "5b4664403f5be79c80943e7232ea0f979190a419df486f603c45af6df0e55273"
     },
     {
       "name": "allocations",
@@ -147,7 +147,7 @@
       ],
       "path": "data/allocations.csv",
       "row_count": 24,
-      "sha256": "5892e37a28b57c48d3f89feacd8609006d9af3c755bec9a27638c7e6bca8313c"
+      "sha256": "95c60b6ad7cba61c5145745382e7f68a8674f64b0e9f829165c27d507f84323c"
     },
     {
       "name": "samples",
@@ -207,7 +207,7 @@
       ],
       "path": "data/samples.csv",
       "row_count": 58,
-      "sha256": "aa38d26074120411aa863b68fd8c432d34bf2a8e81106680a329d528addb6557"
+      "sha256": "d735b6050fb187681601782d6b328b2e0ae7835b0b22036954611d802d89e1fb"
     },
     {
       "name": "assays",
@@ -274,7 +274,7 @@
       ],
       "path": "data/assays.csv",
       "row_count": 220,
-      "sha256": "5f3fefd6618cb89c188e54480b0235cc6def8727a4c4db61b8b48d6a08011727"
+      "sha256": "3ee87751941960d09d181e6680c881fc66b1c0dfff8ea937cf09f7652cc9c543"
     },
     {
       "name": "references",
@@ -329,7 +329,7 @@
       "references": [],
       "path": "data/references.csv",
       "row_count": 8,
-      "sha256": "6143112bec0b72aa7594af226663100a1f057295e810f165a4c18a6f810e8aee"
+      "sha256": "9e09457c0919be00da45c259457b7ebe8bee9fdf18f7121d45dda82420bb14f9"
     },
     {
       "name": "contracts",
@@ -384,7 +384,7 @@
       "references": [],
       "path": "data/contracts.csv",
       "row_count": 2,
-      "sha256": "f093fb2a99169d51ae0838570d5e4b727a6d45b9e56ac1a0cb63d22400bcc8e3"
+      "sha256": "e2505c142d10546023b4d9e88e2daad362ee7b826b9f3fe98ec149e8d2fbaaf1"
     },
     {
       "name": "prices",
@@ -416,7 +416,7 @@
       "references": [],
       "path": "data/prices.csv",
       "row_count": 2,
-      "sha256": "f2e43d188cb4a2f0b7ea166673ef4950108b5e56f43baccdbbd05d51e3e0df7f"
+      "sha256": "6edfdd0c561a32794fe2c89df72aa96281bc1fde280884d47f15437e884aaeff"
     },
     {
       "name": "lines",
@@ -459,7 +459,7 @@
       "references": [],
       "path": "data/lines.csv",
       "row_count": 2,
-      "sha256": "a5e5b1154770b8e2f0b5941206087417bfff9bd9316b93a28dd2fab7a230d904"
+      "sha256": "0b880ef3b9c7a306f154691b47e0cf306d7584192ce6abae2b40b023c8bddf3f"
     },
     {
       "name": "processing_history",
@@ -544,7 +544,7 @@
       ],
       "path": "data/processing_history.csv",
       "row_count": 40,
-      "sha256": "1d89a980e2e3050dfd60b7379fb4c344ad3dea5ba3ab7a00dd7161b1daeefe96"
+      "sha256": "f81fd11036acd8986712bef2d045c17d98e61d6b631df403616ea557e6a8c227"
     },
     {
       "name": "payments",
@@ -587,7 +587,7 @@
       ],
       "path": "data/payments.csv",
       "row_count": 24,
-      "sha256": "ef1ee94da1d92fbb7b4f5249dadcbd4a5d5f19f21766e249818d85799cf8b498"
+      "sha256": "f819c6d593cd8ac0e433eaaf6635d61b6ed3c1fd451cbc7c78537d31c9851e1d"
     },
     {
       "name": "sampling_options",
@@ -630,7 +630,7 @@
       "references": [],
       "path": "data/sampling_options.csv",
       "row_count": 2,
-      "sha256": "454ab8c8aede600cfdd25b98bceb1cbc891a78f4344fdffe2f814e9e82d7d158"
+      "sha256": "c00b520f55a3ce7da7e888eb3eb711d645fab48da3962cd1abce40884b3bed8e"
     }
   ]
 }
